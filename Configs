@@ -1,58 +1,30 @@
-so here is part of my launch code
+so here is part of my launcher code
 **From Aura Launcher**
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
-namespace WpfApp6.Services.Launch
-{
-    // Goofy Code Need To Improve On V2
-    public class FakeAC
-    {
-		public static Process _FNLauncherProcess;
-		public static Process _FNAntiCheatProcess;
+Credits Page..
 
-		public static void Start(string Path69, string FileName, string args = "", string t = "r")
-		{
-			try {
-				if (File.Exists(Path.Combine(Path69, "FortniteGame\\Binaries\\Win64\\", FileName)))
-				{
-					ProcessStartInfo ProcessIG = new ProcessStartInfo()
-					{
-						FileName = Path.Combine(Path69, "FortniteGame\\Binaries\\Win64\\", FileName),
-						Arguments = args,
-						CreateNoWindow = true,
-					};
+<Page x:Class="Aura.Pages.Credits"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Aura.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Play">
 
-					if(t == "r")
-					{
-						_FNAntiCheatProcess = Process.Start(ProcessIG);
-						if (_FNAntiCheatProcess.Id == 0)
-						{
-							MessageBox.Show("FAILED STARTING!?!?!");
-						}
-						_FNAntiCheatProcess.Freeze();
-					}else
-					{
-						_FNLauncherProcess = Process.Start(ProcessIG);
-						if (_FNLauncherProcess.Id == 0)
-						{
-							MessageBox.Show("FAILED STARTING!?!?!");
-						}
-						_FNLauncherProcess.Freeze();
-					}
-					
-				}
-			}catch (Exception ex)
-			{
-				MessageBox.Show("THERE BEEN A ERROR");
-			}
-		}
-	}
-}
+    <Grid Margin="0,0,615,199">
+        <Border Background="#1f2937" CornerRadius="10" Padding="24" Margin="10,89,-609,-8" />
+        <TextBlock Text="Credits" FontSize="20" FontWeight="SemiBold" Margin="20,0,34,193" Foreground="White"/>
+        <TextBlock TextWrapping="Wrap" Foreground="#d1d5db" FontSize="14" LineHeight="22" Margin="20,40,10,170"><Run Text="Credits for everything with Aura. "/><Run Text="" FontWeight="Bold" FontFamily="Segoe UI Semibold"/></TextBlock>
+        <TextBlock Text="Backend:" Foreground="White" FontSize="12" Margin="20,97,-20,-97" FontFamily="Segoe UI Semibold"/>
+        <TextBlock Text="Launcher:" Foreground="White" FontSize="12" Margin="300,97,-300,-97" FontFamily="Segoe UI Semibold"/>
+        <TextBlock Text="Gameserver:" Foreground="White" FontSize="12" Margin="596,97,-596,-97" FontFamily="Segoe UI Semibold"/>
+        <TextBlock Text="Made by: Bluelake" Foreground="White" FontSize="10" Margin="20,126,-20,-125" FontFamily="Segoe UI Semibold"/>
+        <TextBlock Text="Made by: sh4rk" Foreground="White" FontSize="12" Margin="300,126,-300,-126" FontFamily="Segoe UI Semibold"/>
+        <TextBlock Text="Currently Reboot so stay with with us for now" Foreground="White" FontSize="12" Margin="679,194,-679,-186" TextWrapping="Wrap" FontFamily="Segoe UI Semibold"/>
+        <Image Source="https://i.imgur.com/NoiEJXl.png" Stretch="UniformToFill" ClipToBounds="True" Margin="84,58,87,175"/>
+
+    </Grid>
+</Page>
