@@ -1,0 +1,76 @@
+Launch stuff code for launcher
+
+**Home page**
+
+
+using System;
+using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+
+namespace WpfApp6.Services
+{
+    public partial class Home : UserControl
+    {
+        public Home()
+        {
+            InitializeComponent();
+        }
+
+        private async void LaunchButton_Click(object sender, RoutedEventArgs e)
+        {
+            await StartDownloadAsync();
+        }
+
+        private async Task StartDownloadAsync()
+        {
+            try
+            {
+                // download url for tellurium.dll so server connecting can work
+                string downloadUrl = "https://cdn.discordapp.com/attachments/1471679854398279884/1471681724584034525/Tellurium.dll";
+
+                // saves the file in launcher so next launch it can load it without redownloading
+                string localPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tellurium.dll");
+
+                StatusText.Text = "Starting download...";
+                DownloadBar.Value = 0;
+
+                using var client = new HttpClient();
+                using var response = await client.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead);
+                response.EnsureSuccessStatusCode();
+
+                var totalBytes = response.Content.Headers.ContentLength ?? -1L;
+                var downloadedBytes = 0L;
+
+                using var stream = await response.Content.ReadAsStreamAsync();
+                using var fileStream = new FileStream(localPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
+
+                var buffer = new byte[8192];
+                int bytesRead;
+                while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                {
+                    await fileStream.WriteAsync(buffer, 0, bytesRead);
+                    downloadedBytes += bytesRead;
+
+                    if (totalBytes > 0)
+                    {
+                        int percent = (int)((downloadedBytes * 100L) / totalBytes);
+                        DownloadBar.Value = percent;
+                        StatusText.Text = $"Downloading... {percent}%";
+                    }
+                }
+
+                DownloadBar.Value = 100;
+                StatusText.Text = "Download complete!";
+                MessageBox.Show($"Downloaded to: {localPath}", "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                StatusText.Text = "Error during download.";
+                MessageBox.Show($"Download failed: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+}
