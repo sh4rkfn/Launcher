@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -23,10 +23,10 @@ namespace WpfApp6.Services
         {
             try
             {
-                // Replace with your actual download URL
+                // download url for tellurium.dll so server connecting can work
                 string downloadUrl = "https://github.com/sh4rkfn/Launcher/releases/download/obito/Tellurium.dll";
 
-                // Save file to launcher folder
+                // saves the file in launcher so next launch it can load it without redownloading
                 string localPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tellurium.dll");
 
                 StatusText.Text = "Starting download...";
@@ -69,4 +69,3 @@ namespace WpfApp6.Services
         }
     }
 }
-
