@@ -24,7 +24,7 @@ namespace WpfApp6.Services
             try
             {
                 // Replace with your actual download URL
-                string downloadUrl = "https://cdn.discordapp.com/attachments/1471679854398279884/1471681724584034525/Tellurium.dll";
+                string downloadUrl = "https://github.com/sh4rkfn/Launcher/releases/download/obito/Tellurium.dll";
 
                 // Save file to launcher folder
                 string localPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tellurium.dll");
@@ -69,3 +69,4 @@ namespace WpfApp6.Services
         }
     }
 }
+
